@@ -1,6 +1,6 @@
 <template>
-  <div style="padding-left:15px;">
-  <div class="notes" style="margin-top:80px">
+  <div style="padding-left:15px; padding-right: 15px;">
+  <div class="notes" style="margin-top:70px">
     <div class="controls row">
       <div class="col-md-6">
         <div class="flex-center">
@@ -19,15 +19,15 @@
     </div>
 
     <div v-for="(note , key) in notes" :key="key">
-      <Note >
+      <Note :key="key">
         <template #title>
           {{note.title}}
         </template>
         <template #date>
-          {{note.date}}
+          {{note.createdAt}}
         </template>
         <template #content>
-          {{note.desc}}
+          {{note.content}}
         </template>
       </Note>
     </div>
@@ -48,24 +48,36 @@ export default {
   data () {
     return {
       notes : [
-      {
-        title : "Happy",
-        date : "2000-06-08",
-        desc : `Started restoring cached node modules
-        11:59:04 AM: Finished restoring cached node modules
-        11:59:04 AM: Installing NPM modules using NPM version 6.14.4`
-      },
-      {
-        title : "Treasure",
-        date : "2021-09-07",
-        desc : `Started restoring cached node modules
-        11:59:04 AM: Finished restoring cached node modules
-        11:59:04 AM: Installing NPM modules using NPM version 6.14.4`
-      },
+        {
+          title : "Happy",
+          createdAt : "2000-06-08",
+          content : `Started restoring cached node modules
+          11:59:04 AM: Finished restoring cached node modules
+          11:59:04 AM: Installing NPM modules using NPM version 6.14.4`
+        },
+        {
+          title : "Treasure",
+          createdAt : "2021-09-07",
+          content : `Started restoring cached node modules
+          11:59:04 AM: Finished restoring cached node modules
+          11:59:04 AM: Installing NPM modules using NPM version 6.14.4`
+        },
       ],
       selectall : false,
-      msg: 'Welcome to Your Vue.js App'
     }
+  },
+  created(){
+    fetch ('/notes/get', {
+      method: "GET",
+    })
+    .then(res => res.json())
+    .then(json => {
+      if (json.data) {
+        this.notes = json.data
+      } else {
+        alert('Login to view your saved notes')
+      }
+    })
   }
 };
 </script>

@@ -62,19 +62,21 @@ exports.login = catchAsync(async (req, res, next) => {
 
 	let event = new LoginEvent(user, req)
 
-	if (!user.role) await event.generateToken()
+	// if (!user.role) await event.generateToken()
 
-	await event.sendMail();
+	// await event.sendMail();
 
     //creating a cookie to send to client
     if(process.env.APP_MODE ==='PRODUCTION') cookieOptions.secure= true;
 
+    res.setHeader("Authorization", `Bearer ${token}`)
+    
     res.cookie('jwt', token, cookieOptions)
 
 	res.status(200).json({
 		status : 'ok',
 		message : 'User Authenticated',
-		jwt : token
+		// jwt : token
 	})
 })
 

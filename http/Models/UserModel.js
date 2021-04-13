@@ -7,8 +7,8 @@ const moment = require('moment')
 
 const Profile = require('./ProfileModel')
 const Role = require('./extras/RoleModel')
-const Wallet = require('./WalletModel')
-
+const { NoteSchema } = require('./NoteModel')
+const { FinanceSchema } = require('./FinanceModel')
 // Plugins
 const timestamp = require('./plugins/timestamp')
 const populate = require('./plugins/populate')
@@ -52,10 +52,8 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Profile'
     },
-    wallet: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Wallet'
-    },
+    notes: [NoteSchema],
+    finances: [FinanceSchema], 
     active: {
         type: Boolean,
         default: false

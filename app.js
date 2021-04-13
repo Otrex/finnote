@@ -73,13 +73,15 @@ if (process.env.APP_MODE == 'DEVELOPMENT'){
 // General MiddleWares
 const Verify = require('./http/Middleware/Verify')
 const Restrict = require('./http/Middleware/Restrict')
+const Action = require('./http/Middleware/Action')
+
 
 // Routes
 // app.use('/test', require('./routes/test'))
 app.use('/', require('./routes/home'))
 app.use('/auth', require('./routes/auth'))
-app.use('/dash', require('./routes/dashboard'))
-app.use('/paystack', require('./routes/paystack'))
+app.use('/notes', Verify.authenticated, Action.populate('notes'), require('./routes/notes'))
+app.use('/finance', Verify.authenticated, Action.populate('finances'), require('./routes/finance'))
 app.use('/admin', Verify.authenticated, Restrict.to({ admin: true }), require('./routes/admin'))
 
 // Error Handler route
