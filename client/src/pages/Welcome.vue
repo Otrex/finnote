@@ -14,7 +14,7 @@
                 <div class="middle">
                   <h1>Get The Best Out Of You Income</h1>
                   <h4>We offer the best way to manage your finance. At your finger tips.<br>So NO MORE excessive spendings</h4>
-                  <button class="btn btn-primary">Get Started</button>
+                  <button class="btn btn-primary" @click="register = !register">Get Started</button>
                 </div>
                 </div>
               </div>
@@ -37,7 +37,7 @@
                 <div class="middle">
                   <h1>Manage Your Task with ease</h1>
                   <h4>We offer the best way to manage your Task. At your finger tips.<br>So NO MORE excessive spendings</h4>
-                  <button class="btn btn-primary">Get Started</button>
+                  <button class="btn btn-primary" @click="register = !register">Get Started</button>
                 </div>
                 </div>
               </div>
@@ -57,7 +57,7 @@
                 <div class="middle">
                   <h1>Note Note Note. Save Notes!</h1>
                   <h4>Save your amazing notes with us today. Easily accessible anywhere in the world.</h4>
-                  <button class="btn btn-primary">Get Started</button>
+                  <button class="btn btn-primary" @click="register = !register">Get Started</button>
                 </div>
                 </div>
               </div>
@@ -73,25 +73,41 @@
       <a class="next" @click="plusSlides(1)">&#10095;</a>
     </div>
     <br>
-
     <!-- The dots/circles -->
     <div class="controls" style="text-align:center">
       <span @click="currentSlide(1)" :class="['dot', dots.slide1]"></span>
       <span @click="currentSlide(2)" :class="['dot', dots.slide2]"></span>
       <span @click="currentSlide(3)" :class="['dot', dots.slide3]"></span>
     </div>
+    <div class="modal-bg" v-show="register">
+      <div class="close-btn"><ico icon="times" @click="register = !register"></ico></div>
+      <div class="modal-box-wrapper">
+        <div class="modal-box">
+          <Register :show="true" />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 /* eslint-disable */
+import Register from '../components/sub/Register.vue'
+
   export default {
     name : "Welcome",
+    props : {
+      login : Boolean
+    },
     data() {
       return {
         slideIndex : 1,
-        dots: {slide1: "active", slide2:undefined}
+        dots: {slide1: "active", slide2:undefined},
+        register : false
       }
+    },
+    components :{
+      Register
     },
     methods : {
       plusSlides: function (n) {
@@ -124,6 +140,26 @@
 </script>
 
 <style>
+
+.modal-bg .close-btn {
+  color: white;
+  position: absolute;
+  top: 50px;
+  right :50px;
+  font-size: 50px;
+}
+.modal-box {
+  margin: 50px 15%;
+}
+.modal-bg {
+  position: fixed;
+  top: 0px;
+  left:0px;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0,0,0,.8);
+  z-index: 2000000;
+}
 .welcome {
   height: 100vh;
   overflow: hidden;
@@ -167,6 +203,18 @@
   height:100vh;
   align-items: center;
 }
+
+.btn.btn-primary {
+  margin-top: 30px;
+  padding: 15px 22px;
+  background-color: transparent !important;
+  border: 3px solid white;
+}
+
+.btn.btn-primary:hover {
+  background-color: rgba(10,10,10,.5);
+  box-shadow: 0px 0px 10px rgba(0,0,0, .5);
+} 
 @media screen and (max-width: 700px) {
   .middle {
     width: 95%;
@@ -174,14 +222,14 @@
 }
 
 .slide-content.one {
-  background-image: linear-gradient(to right, rgba(50,50,50,.8), rgba(200,200,200,.2)) , url(https://picsum.photos/1024/480/?image=10);
+  background-image: linear-gradient(to right, rgba(0,0,0,.8), rgba(200,200,200,.2)) , url(https://picsum.photos/1024/480/?image=13);
 
 }
 .slide-content.two {
-  background-image: linear-gradient(to left, rgba(50,50,50,.8), rgba(200,200,200,.2)) ,url(https://picsum.photos/1024/480/?image=19);
+  background-image: linear-gradient(to left, rgba(0,0,0,.8), rgba(200,200,200,.2)) ,url(https://picsum.photos/1024/480/?image=19);
 }
 .slide-content.three {
-  background-image: linear-gradient(to right, rgba(50,50,50,.8), rgba(200,200,200,.2)) ,url(https://picsum.photos/1024/480/?image=15);
+  background-image: linear-gradient(to right, rgba(0,0,0,.8), rgba(200,200,200,.2)) ,url(https://picsum.photos/1024/480/?image=15);
 }
 /*slide-content  {
   position: absolute;

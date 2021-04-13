@@ -11,7 +11,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faUserSecret, faBell, faCheckSquare, faBars,
-	faUserPlus, faPlusSquare, faSquare } from '@fortawesome/free-solid-svg-icons'
+	faUserPlus, faPlusSquare, faSquare, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(faBars)
@@ -21,6 +21,7 @@ library.add(faPlusSquare)
 library.add(faCheckSquare)
 library.add(faSquare)
 library.add(faBell)
+library.add(faTimes)
 
 Vue.component('ico', FontAwesomeIcon)
 

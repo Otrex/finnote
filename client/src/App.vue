@@ -9,6 +9,7 @@
           <ul>
             <li><router-link to="/budget"> Finance Manager </router-link></li>
             <li><router-link to="/note"> Note Manager </router-link></li>
+            <li style="background: rgba(10,10,10,.4)"><a @click="login = !login"> Log In</a></li>
           </ul>
         </div>
       </div>
@@ -17,7 +18,7 @@
       <TopNav v-if='show_sidebars' class="col-md-12 fixed" />
 
       <div class="row no-gutters">
-        <router-view :class="show_sidebars ? 'col-md-8' : 'col-md-12 full' "/>
+        <router-view :class="show_sidebars ? 'col-md-8' : 'col-md-12 full' " :login="login"/>
         <Notes v-if='show_sidebars' class="col-md-4" />
       </div>
     </div>
@@ -31,6 +32,11 @@ import Notes from '@/components/Notes.vue'
 
 export default {
   name: 'App',
+  data () {
+    return {
+      login : false
+    }
+  },
   components : {
     TopNav, Notes
   },
