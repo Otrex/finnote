@@ -6,7 +6,7 @@ const xss = require('xss-clean')
 const hpp = require('hpp')
 const express = require("express")
 const path = require("path")
-var expressLayouts = require('express-ejs-layouts');
+const expressLayouts = require('express-ejs-layouts');
 
 // Init App
 const app = express()
@@ -75,6 +75,11 @@ const Verify = require('./http/Middleware/Verify')
 const Restrict = require('./http/Middleware/Restrict')
 const Action = require('./http/Middleware/Action')
 
+//AuthService
+const { passport } = require('./services/AuthServices')
+
+
+app.use(passport.initialize())
 
 // Routes
 // app.use('/test', require('./routes/test'))

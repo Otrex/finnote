@@ -12,6 +12,9 @@ const LoginEvent = require('../Events/LoginEvent')
 const RegisterationEvent = require('../Events/RegistrationEvent')
 const ResetPasswordEvent = require('../Events/ResetPasswordEvent')
 
+
+const { passport } = require('../../services/AuthServices')
+
 // Cookie Option Response
 const cookieOptions = {
     expires: new Date(Date.now() + parseInt(process.env.APP_COOKIE_EXPIRES_IN)),
@@ -76,6 +79,7 @@ exports.login = catchAsync(async (req, res, next) => {
 	res.status(200).json({
 		status : 'ok',
 		message : 'User Authenticated',
+		user
 		// jwt : token
 	})
 })
@@ -139,6 +143,13 @@ exports.verify = catchAsync(async (req, res, next) => {
 	})
 
 })
+
+exports.facebookAuth = passport.authenticate('facebook')
+exports.facebookAuthCallback = passport.authenticate('facebook', { failureRedirect: '/login' })
+
+
+exports.googleAuth = passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] })
+exports.googleAuthCallback = passport.authenticate('google', { failureRedirect: '/login' })
 
 
 exports.logout = (req, res)=>{

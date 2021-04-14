@@ -34,4 +34,12 @@ route.get('/verify/:id/:token', AuthController.verify)
 //Verify Email Token
 route.get('/logout', AuthController.logout)
 
+
+// Other Auths
+route.get('/facebook', AuthController.facebookAuth)
+route.get('/facebook/callback', AuthController.facebookAuthCallback, (req, res)=>res.redirect("/"))
+
+route.get('/google', AuthController.googleAuth)
+route.get('/google/callback', AuthController.googleAuthCallback, (req,res)=>res.redirect('/'))
+
 module.exports = route
