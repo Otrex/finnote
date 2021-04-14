@@ -83,7 +83,15 @@
       <div class="close-btn"><ico icon="times" @click="register = !register"></ico></div>
       <div class="modal-box-wrapper">
         <div class="modal-box">
-          <Register :show="true" />
+          <Register :show="register" />
+        </div>
+      </div>
+    </div>
+    <div class="modal-bg" v-show="login">
+      <div class="close-btn"><ico icon="times" @click="login = !login"></ico></div>
+      <div class="modal-box-wrapper">
+        <div class="modal-box">
+          <Login :show="login" />
         </div>
       </div>
     </div>
@@ -93,7 +101,7 @@
 <script>
 /* eslint-disable */
 import Register from '../components/sub/Register.vue'
-
+import Login from '../components/sub/Login.vue'
   export default {
     name : "Welcome",
     props : {
@@ -107,7 +115,7 @@ import Register from '../components/sub/Register.vue'
       }
     },
     components :{
-      Register
+      Register, Login
     },
     methods : {
       plusSlides: function (n) {

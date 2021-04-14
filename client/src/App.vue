@@ -9,7 +9,7 @@
           <ul>
             <li><router-link to="/budget"> Finance Manager </router-link></li>
             <li><router-link to="/note"> Note Manager </router-link></li>
-            <li style="background: rgba(10,10,10,.4)"><a @click="login = !login"> Log In</a></li>
+            <li v-show="!user" style="background: rgba(10,10,10,.4)"><a @click="login = !login"> Log In</a></li>
           </ul>
         </div>
       </div>
@@ -18,7 +18,7 @@
       <TopNav v-if='show_sidebars' class="col-md-12 fixed" />
 
       <div class="row no-gutters">
-        <router-view :class="show_sidebars ? 'col-md-8' : 'col-md-12 full' " :login="login"/>
+        <router-view :class="show_sidebars ? 'col-md-8 padd' : 'col-md-12 full' " :login="login"/>
         <Notes v-if='show_sidebars' class="col-md-4" />
       </div>
     </div>
@@ -29,6 +29,7 @@
 /* eslint-disable */
 import TopNav from '@/components/TopNav.vue'
 import Notes from '@/components/Notes.vue'
+import { mapState } from 'vuex'
 
 export default {
   name: 'App',
@@ -41,6 +42,7 @@ export default {
     TopNav, Notes
   },
   computed : {
+    ...mapState(['user']),
     show_sidebars : function() {
       if (this.$route.name !== 'Welcome') return true
     }
@@ -50,6 +52,9 @@ export default {
 </script>
 
 <style>
+.padd {
+  padding: 0px 15px;
+}
 #app {
   font-family: 'Lato', sans-serif;
   -webkit-font-smoothing: antialiased;

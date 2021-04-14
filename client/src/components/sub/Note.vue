@@ -3,23 +3,22 @@
   <div class="row">
    <div class="col-md-6">
     <div class="title">
-     <slot name="title"></slot>
+     {{note.title}}
     </div>
    </div>
    <div class="col-md-6">
     <div class="date">
-     <slot name="date"></slot>
+     {{note.createdAt}}
     </div>
    </div>
    <div class="col-md-12">
     <div class="content">
-     <slot name="content"></slot>
+     {{note.content}}
      <div class="select-control">
      <div style="display:inline-block">
-      <label :for="key" class="flex-center">
-       <span style="font-size:17px;"> Select </span><i v-if="!select"><ico icon='square'  ></ico></i>
-       <i v-if="select"><ico icon='check-square'></ico></i>
-       <input type="checkbox" style="display:none;" v-model="select" :id="key" name="">
+      <label class="flex-center" @click="addToList">
+       <span style="font-size:17px;" > Select </span><i v-if="!isSelected"><ico icon='square'  ></ico></i>
+       <i v-if="isSelected"><ico icon='check-square'></ico></i>
       </label>
      </div>
      </div>
@@ -31,16 +30,37 @@
 
 <script type="text/javascript">
 /* eslint-disable */
+import { mapState, mapMutations } from 'vuex'
+
 export default {
 	name: "Note",
 	props : {
-		key : String
+		nid : Number,
+    note : Object
 	},
+  computed : {
+    ...mapState(['notes']),
+    isSelected : function() {
+      this.select = this.notes.selected.find(note =>note == this.note)
+      return this.select
+    }
+  },
 	data() {
 		return {
 			select : false
 		}
-	}
+	},
+  methods : {
+    ...mapMutations(['addSelectedNote', 'removeSelectedNote']),
+    addToList : function() {
+      if (!this.select) {
+        this.addSelectedNote(this.note)
+      } else {
+        this.select = false
+        this.removeSelectedNote(this.notes.selected.indexOf(this.note))
+      }
+    }
+  }
 };
 </script>
 <style>
