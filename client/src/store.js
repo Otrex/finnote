@@ -36,6 +36,12 @@ export default new Vuex.Store({
 		},
 		removeSelectedNote : (state, nid)=>{
 			state.notes.selected[nid] = 1
+		},
+		addAllSelectedNotes : (state)=>{
+			state.notes.selected = [...state.notes.data]
+		},
+		removeAllSelectedNotes : (state)=>{
+			state.notes.selected = new Array(state.notes.data.length).fill(1)
 		}
 	}
 })

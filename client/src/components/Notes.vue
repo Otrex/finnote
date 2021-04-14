@@ -27,7 +27,7 @@
 <script>
 /* eslint-disable */
 import Note from './sub/Note.vue'
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 const moment = require('moment')
 
 export default {
@@ -56,12 +56,14 @@ export default {
     }
   },
   methods : {
+    ...mapMutations(['addAllSelectedNotes', 'removeAllSelectedNotes']),
     selectall : function() {
       if (this.select == false){
+        this.addAllSelectedNotes()
         this.notes.selected = this.notes.data
       } else {
         this.select = false
-        this.notes.selected = new Array(this.notes.data.length).fill(1)
+        this.removeAllSelectedNotes()
       }
     }
   },

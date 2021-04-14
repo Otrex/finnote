@@ -1,5 +1,5 @@
 <template>
-<nav>
+<nav class="fixed">
     <div class="row">
         <div class="col-md-4"></div>
         <div class="col-md-8">
@@ -39,6 +39,13 @@ nav ul {
 	margin: 0px;
 	padding: 0px;
 	width: 100%;
+}
+.fixed {
+  position : fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 500;
+  width: 100%;
 }
 nav ul li {
 	display: inline-block;
