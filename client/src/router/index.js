@@ -1,28 +1,42 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+/* eslint-disable */
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import store from '../store/index';
+import authRoute from './auth'
+import noteRoute from './note'
+import appRoute from './app'
 
-import Welcome from '@/pages/Welcome'
-import Budget from '@/pages/Budget'
-import MakeNote from '@/pages/MakeNote'
 
-Vue.use(Router)
+import DefaultComponentLayout from '../layout/DefaultComponentLayout.vue'
 
-export default new Router({
-  routes: [
+Vue.use(VueRouter)
+
+const router = new VueRouter({
+  mode: 'history',
+  base: process.env.BASE_URL,
+  routes : [
+  	...authRoute,
+    ...noteRoute,
+    ...appRoute,
     {
-      path: '/',
-      name: 'Welcome',
-      component: Welcome
-    },
-    {
-      path: '/budget',
-      name: 'Budget',
-      component: Budget
-    },
-    {
-      path: '/notes',
-      name: 'MakeNote',
-      component: MakeNote
+      name : "Default",
+      path : '/',
+      component : DefaultComponentLayout
     }
   ]
+});
+
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (store.getters["auth/isLoggedIn"]) {
+      next()
+      return
+    }
+    next('/signin')
+  } else {
+    next()
+  }
 })
+
+export default router;
